@@ -37,7 +37,7 @@ export const Drinks = ({ drinkDatas, modal, setModal }) => {
                         <p>{drink.strInstructions}</p>
                       </div>
                       <Button variant="contained" onClick={() => setModal()}>
-                        X
+                        Back
                       </Button>
                     </div>
                   )
