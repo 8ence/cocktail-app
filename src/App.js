@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Search } from './components/search/Search';
-import { Drinks } from './components/search/drinks/Drinks';
+import { Drinks } from './components/drinks/Drinks';
 
 function App() {
   
