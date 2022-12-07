@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import "./Drinks.css";
 import Button from "@mui/material/Button";
+import { motion } from "framer-motion";
+import "./Drinks.css";
 
 export const Drinks = ({ drinkDatas, modal, setModal }) => {
   return (
     <div className="drink-card-container">
       {!modal &&
         drinkDatas.map((drink, index) => (
-          <div className="drink-card" key={index}>
+          <motion.div
+            className="drink-card"
+            key={index}
+            animate={{ x: 0, scale: 1 }}
+            initial={{ x: -100, scale: 0 }}>
             <div className="details">
               <h3>{drink.strDrink}</h3>
               <Button
@@ -44,7 +49,7 @@ export const Drinks = ({ drinkDatas, modal, setModal }) => {
             <div className="image">
               <img src={drink.strDrinkThumb} alt="" />
             </div>
-          </div>
+          </motion.div>
         ))}
       {modal}
     </div>
