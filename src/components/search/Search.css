@@ -4,4 +4,10 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
+}
+.search-container .button-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }/*# sourceMappingURL=Search.css.map */

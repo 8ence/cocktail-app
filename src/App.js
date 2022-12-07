@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Search } from './components/search/Search';
 import { Drinks } from './components/drinks/Drinks';
+import { Random } from './components/random/Random';
 
 function App() {
   
@@ -10,6 +11,9 @@ function App() {
   const [updateDrink, setUpdateDrink] = useState();
   const [drinkDatas, setDrinkDatas] = useState();
   const [modal, setModal] = useState();
+  const [randomDrinkData, setRandomDrinkData] = useState()
+  const [searchRandom, setSearchRandom] = useState(false)
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
     const options = {
@@ -33,6 +37,23 @@ function App() {
     }
   }, [drink]);
 
+  useEffect(() => {
+    const random = {
+	method: 'GET',
+	headers: {
+      "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+      "X-RapidAPI-Host": process.env.REACT_APP_API_HOST,
+	}
+};
+
+fetch('https://the-cocktail-db.p.rapidapi.com/random.php', random)
+	.then(response => response.json())
+	.then(response => {
+    setRandomDrinkData(response.drinks)
+  })
+	.catch(err => console.error(err));
+  }, [refresh])
+
   const searchDrink = () => {
     setDrink(updateDrink);
   };
@@ -42,8 +63,10 @@ function App() {
   };
   return (
     <div className="App">
-      {!modal && <Search searchDrink={searchDrink} changeInput={changeInput}/>}
-      {drinkDatas !== undefined && <Drinks drinkDatas={drinkDatas} modal={modal} setModal={setModal}/>}
+      {!modal && <Search searchDrink={searchDrink} changeInput={changeInput} setSearchRandom={setSearchRandom} searchRandom={searchRandom} setRefresh={setRefresh} refresh={refresh} setDrinkDatas={setDrinkDatas}/>}
+      {drinkDatas && <Drinks drinkDatas={drinkDatas} modal={modal} setModal={setModal}/>}
+      {searchRandom && drinkDatas === undefined && <Random randomDrinkData={randomDrinkData}/>}
+
     </div>
   );
 }
