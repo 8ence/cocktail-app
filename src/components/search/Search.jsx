@@ -3,7 +3,15 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./Search.css";
 
-export const Search = ({ changeInput, searchDrink }) => {
+export const Search = ({
+  changeInput,
+  searchDrink,
+  setSearchRandom,
+  searchRandom,
+  setRefresh,
+  refresh,
+  setDrinkDatas,
+}) => {
   return (
     <div className="search-container">
       <TextField
@@ -13,9 +21,20 @@ export const Search = ({ changeInput, searchDrink }) => {
         style={{ backgroundColor: "white", width: "100%", color: "red" }}
         onChange={changeInput}
       />
-      <Button variant="contained" onClick={searchDrink}>
-        Lets Drunk
-      </Button>
+      <div className="button-container">
+        <Button variant="contained" onClick={searchDrink}>
+          Lets Drink
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setSearchRandom(true);
+            setRefresh(!refresh);
+            setDrinkDatas(undefined);
+          }}>
+          {!searchRandom ? "Search Random" : "Search Again"}
+        </Button>
+      </div>
     </div>
   );
 };
