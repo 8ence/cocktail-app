@@ -14,6 +14,7 @@ function App() {
   const [randomDrinkData, setRandomDrinkData] = useState()
   const [searchRandom, setSearchRandom] = useState(false)
   const [refresh, setRefresh] = useState(false)
+  const [autoComplete, setAutoComplete] = useState([])
 
   useEffect(() => {
     const options = {
@@ -54,19 +55,37 @@ fetch('https://the-cocktail-db.p.rapidapi.com/random.php', random)
 	.catch(err => console.error(err));
   }, [refresh])
 
+  useEffect(() => {
+
+  let listArray = []
+
+  const autoOptions = {
+    method: 'GET',
+    headers: {
+      "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+      "X-RapidAPI-Host": process.env.REACT_APP_API_HOST,
+    }
+  };
+  fetch('https://the-cocktail-db.p.rapidapi.com/list.php?i=list', autoOptions)
+  .then(response => response.json())
+	.then(response => setAutoComplete(response.drinks.map((drink, i) => drink.strIngredient1)))
+	.catch(err => console.error(err));
+  }, [])
+
   const searchDrink = () => {
     setDrink(updateDrink);
   };
 
-  const changeInput = (evt) => {
-    setUpdateDrink(evt.target.value);
+  const changeInput = (evt, newInputValue) => {
+    setUpdateDrink(newInputValue);
   };
   return (
     <div className="App">
-      {!modal && <Search searchDrink={searchDrink} changeInput={changeInput} setSearchRandom={setSearchRandom} searchRandom={searchRandom} setRefresh={setRefresh} refresh={refresh} setDrinkDatas={setDrinkDatas}/>}
+      {!modal && <Search searchDrink={searchDrink} changeInput={changeInput} setSearchRandom={setSearchRandom} searchRandom={searchRandom} setRefresh={setRefresh} refresh={refresh} setDrinkDatas={setDrinkDatas} autoComplete={autoComplete}/>}
       {drinkDatas && <Drinks drinkDatas={drinkDatas} modal={modal} setModal={setModal}/>}
       {searchRandom && drinkDatas === undefined && <Random randomDrinkData={randomDrinkData}/>}
-
+      {drinkDatas === null && <div><p>Sajna nincs ilyen iszi, ez csak egy összetevő lesz. 
+        Dolgozom rajta, hogy ilyenkor megkapd azokat az isziket, amikben az adott összetevő van. Pusziii</p></div>}
     </div>
   );
 }
