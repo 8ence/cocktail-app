@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Search } from './components/search/Search';
 import { Drinks } from './components/drinks/Drinks';
 import { Random } from './components/random/Random';
+import { Ingredients } from './components/ingredients/Ingredients';
 
 function App() {
   
@@ -15,6 +16,8 @@ function App() {
   const [searchRandom, setSearchRandom] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [autoComplete, setAutoComplete] = useState([])
+  const [ingredient, setIngredient] = useState()
+  const [fromIngredient, setFromIngredient] = useState()
 
   useEffect(() => {
     const options = {
@@ -57,8 +60,6 @@ fetch('https://the-cocktail-db.p.rapidapi.com/random.php', random)
 
   useEffect(() => {
 
-  let listArray = []
-
   const autoOptions = {
     method: 'GET',
     headers: {
@@ -76,16 +77,33 @@ fetch('https://the-cocktail-db.p.rapidapi.com/random.php', random)
     setDrink(updateDrink);
   };
 
+  useEffect(() => {
+  const ingredientOptions = {
+	method: 'GET',
+	headers: {
+      "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+      "X-RapidAPI-Host": process.env.REACT_APP_API_HOST,
+	}
+};
+
+  if(drinkDatas === null){
+    fetch(`https://the-cocktail-db.p.rapidapi.com/filter.php?i=${ingredient}`, ingredientOptions)
+    .then(response => response.json())
+    .then(response => setFromIngredient(response.drinks))
+    .catch(err => console.log(err));
+  }
+}, [drinkDatas, refresh])
+
   const changeInput = (evt, newInputValue) => {
     setUpdateDrink(newInputValue);
+    setIngredient(newInputValue)
   };
   return (
     <div className="App">
       {!modal && <Search searchDrink={searchDrink} changeInput={changeInput} setSearchRandom={setSearchRandom} searchRandom={searchRandom} setRefresh={setRefresh} refresh={refresh} setDrinkDatas={setDrinkDatas} autoComplete={autoComplete}/>}
       {drinkDatas && <Drinks drinkDatas={drinkDatas} modal={modal} setModal={setModal}/>}
       {searchRandom && drinkDatas === undefined && <Random randomDrinkData={randomDrinkData}/>}
-      {drinkDatas === null && <div><p>Sajna nincs ilyen iszi, ez csak egy összetevő lesz. 
-        Dolgozom rajta, hogy ilyenkor megkapd azokat az isziket, amikben az adott összetevő van. Pusziii</p></div>}
+      {drinkDatas === null && <Ingredients ingredient={ingredient} fromIngredient={fromIngredient} setDrink={setDrink}/>}
     </div>
   );
 }

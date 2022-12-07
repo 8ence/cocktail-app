@@ -32,7 +32,12 @@ export const Search = ({
         onInputChange={changeInput}
       />
       <div className="button-container">
-        <Button variant="contained" onClick={searchDrink}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setRefresh(!refresh);
+            searchDrink();
+          }}>
           Lets Drink
         </Button>
         <Button

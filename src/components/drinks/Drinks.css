@@ -1,31 +1,30 @@
 .drink-card-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5%;
-  padding: 15px;
+  gap: 15px;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 .drink-card-container button {
   background-color: #1769aa;
   font-weight: bold;
 }
 .drink-card-container .drink-card {
-  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5%;
+  justify-content: space-between;
   padding: 5%;
-  background-image: linear-gradient(to right, #2196f3, white);
+  align-items: center;
+  width: 70%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .drink-card-container .drink-card .details {
   width: 50%;
-  color: white;
+  color: black;
 }
 .drink-card-container .drink-card .image {
-  width: 50%;
+  width: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;

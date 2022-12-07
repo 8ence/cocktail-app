@@ -9,11 +9,7 @@ export const Drinks = ({ drinkDatas, modal, setModal }) => {
         drinkDatas.map((drink, index) => (
           <div className="drink-card" key={index}>
             <div className="details">
-              <h2>{drink.strDrink}</h2>
-              <p>{drink.strCategory}</p>
-            </div>
-            <div className="image">
-              <img src={drink.strDrinkThumb} alt="" />
+              <h3>{drink.strDrink}</h3>
               <Button
                 variant="contained"
                 onClick={() =>
@@ -44,6 +40,9 @@ export const Drinks = ({ drinkDatas, modal, setModal }) => {
                 }>
                 Show More
               </Button>
+            </div>
+            <div className="image">
+              <img src={drink.strDrinkThumb} alt="" />
             </div>
           </div>
         ))}
