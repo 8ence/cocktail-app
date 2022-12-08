@@ -7,6 +7,16 @@
   margin-top: 5%;
   margin-bottom: 5%;
 }
+.from-ingredient-container .empty-drink {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+.from-ingredient-container .empty-drink img {
+  width: 40%;
+}
 .from-ingredient-container .from-ingredient-card-container {
   display: flex;
   flex-direction: column;
