@@ -51,10 +51,16 @@
         flex-direction: column;
         justify-content: center;
 
+        button {
+            width: 25%;
+        }
+
         .ingredients-container {
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+
+            width: 80%;
 
             .ingredients {
                 display: flex;

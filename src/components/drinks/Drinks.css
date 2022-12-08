@@ -42,10 +42,14 @@
   flex-direction: column;
   justify-content: center;
 }
+.drink-card-container .modal-container button {
+  width: 25%;
+}
 .drink-card-container .modal-container .ingredients-container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  width: 80%;
 }
 .drink-card-container .modal-container .ingredients-container .ingredients {
   display: flex;
