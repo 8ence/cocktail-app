@@ -41,9 +41,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .drink-card-container .modal-container button {
   width: 25%;
+}
+.drink-card-container .modal-container .instruction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
 }
 .drink-card-container .modal-container .ingredients-container {
   display: flex;
